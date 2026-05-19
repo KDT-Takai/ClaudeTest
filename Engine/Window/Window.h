@@ -2,6 +2,8 @@
 
 #include <Windows.h>
 
+class Window;  // 前方宣言 - DirectX12Window で使用
+
 class Window {
 private:
     HWND hwnd;

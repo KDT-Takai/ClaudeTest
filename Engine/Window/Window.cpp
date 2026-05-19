@@ -1,10 +1,12 @@
 ﻿#include "Window.h"
 
-// WNDCLASSEX の初期化 - 正確なフィールド順序に注意
-static const WNDCLASSEX wcex = {
+#include "Window.h"
+
+// WNDCLASSEX の初期化 - 正確なフィールド順序と型に注意
+WNDCLASSEX wcex = {
     sizeof(WNDCLASSEX),              // cbSize
     CS_HREDRAW | CS_VREDRAW,         // style
-    (WNDPROC)Window::WndProc,        // lpfnWndProc
+    nullptr,                         // lpfnWndProc - 後で代入
     0,                               // cbClsExtra
     0,                               // cbWndExtra
     GetModuleHandle(0),              // hInstance
@@ -12,14 +14,19 @@ static const WNDCLASSEX wcex = {
     LoadCursor(0, IDC_ARROW),        // hCursor
     (HBRUSH)(COLOR_WINDOW + 1),      // hbrBackground
     0,                               // lpszMenuName
-    "DirectX12GameWindow",           // lpszClassName
+    L"DirectX12GameWindow",          // lpszClassName - LPCWSTR で初期化
     0                                // hIconSm
 };
 
-// 静的メンバー宣言
-LRESULT CALLBACK Window::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    return ::DefWindowProc(hwnd, msg, wParam, lParam);
+// 静的メンバー宣言と実装 - extern "C" で囲むことで正しく解析される
+extern "C" {
+    LRESULT CALLBACK Window::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+        return ::DefWindowProc(hwnd, msg, wParam, lParam);
+    }
 }
+
+// WNDPROC の代入 - 構造体が完全に初期化された後
+wcex.lpfnWndProc = (WNDPROC)Window::WndProc;
 
 Window::~Window() {
     if (hwnd) {
@@ -29,6 +36,12 @@ Window::~Window() {
 }
 
 bool Window::Create() {
+    // クラスを登録する
+    if (!RegisterClassEx(&wcex)) {
+        OutputDebugStringA("Window::Create failed - RegisterClassEx returned NULL");
+        return false;
+    }
+
     wchar_t wtitle[256];
     MultiByteToWideChar(CP_ACP, 0, title, -1, wtitle, sizeof(wtitle));
 
