@@ -1,4 +1,25 @@
-#include "Window.h"
+﻿#include "Window.h"
+
+// WNDCLASSEX の初期化 - 正確なフィールド順序に注意
+static const WNDCLASSEX wcex = {
+    sizeof(WNDCLASSEX),              // cbSize
+    CS_HREDRAW | CS_VREDRAW,         // style
+    (WNDPROC)Window::WndProc,        // lpfnWndProc
+    0,                               // cbClsExtra
+    0,                               // cbWndExtra
+    GetModuleHandle(0),              // hInstance
+    LoadIcon(0, IDI_APPLICATION),    // hIcon
+    LoadCursor(0, IDC_ARROW),        // hCursor
+    (HBRUSH)(COLOR_WINDOW + 1),      // hbrBackground
+    0,                               // lpszMenuName
+    "DirectX12GameWindow",           // lpszClassName
+    0                                // hIconSm
+};
+
+// 静的メンバー宣言
+LRESULT CALLBACK Window::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+    return ::DefWindowProc(hwnd, msg, wParam, lParam);
+}
 
 Window::~Window() {
     if (hwnd) {
@@ -8,10 +29,6 @@ Window::~Window() {
 }
 
 bool Window::Create() {
-    if (!RegisterClassEx(&wcex)) {
-        return false;
-    }
-
     wchar_t wtitle[256];
     MultiByteToWideChar(CP_ACP, 0, title, -1, wtitle, sizeof(wtitle));
 
@@ -19,7 +36,7 @@ bool Window::Create() {
         0,
         wcex.lpszClassName,
         wtitle,
-        WS_OVERLAPPEDWINDOW,
+        WS_OVERLAPPEDWINDOW | WS_VISIBLE,  // 初期表示
         100, 100,
         width,
         height,
@@ -30,6 +47,7 @@ bool Window::Create() {
     );
 
     if (!hwnd) {
+        OutputDebugStringA("Window::Create failed - CreateWindowEx returned NULL");
         return false;
     }
 
