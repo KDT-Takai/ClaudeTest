@@ -15,9 +15,9 @@ enum class D3DContextType : UINT
 // DirectX12 ウィンドウクラス
 class DXWindow : public Window
 {
-public:
-    DXWindow(const char* title, int width, int height);
-    ~DXWindow();
+// Constructor and Destructor
+DXWindow(HWND hWnd, int width, int height, const wchar_t* title);
+virtual ~DXWindow();
 
     // コンテキストの作成と初期化
     bool CreateContext(D3DContextType type = D3D_CONTEXT_TYPE_DIRECT);
@@ -39,12 +39,13 @@ protected:
     int m_nWidth, m_nHeight;
 };
 
-// DXWindow のコンストラクタ実装
-DXWindow::DXWindow(const char* title, int width, int height) 
-    : Window(title, width, height), m_nWidth(width), m_nHeight(height)
+// コンストラクタ実装
+DXWindow::DXWindow(HWND hWnd, int width, int height) 
+    : Window(hWnd, width, height), m_nWidth(width), m_nHeight(height)
 {
 }
 
+// デストラクタ実装
 DXWindow::~DXWindow()
 {
     ResetResources();
@@ -66,15 +67,15 @@ bool DXWindow::CreateContext(D3DContextType type)
     scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     scd.SampleDesc.Count = 1;
     scd.Windowed = TRUE;
-    
+
     // 2. SwapChain を作成
-    m_pSwapChain = CD3DX12CreateSwapChain(
+    m_pSwapChainBuffer = CD3DX12CreateSwapChain(
         wcex.hInstance,
         wcex.lpfnWndProc,
         (HWND)GetWindowLongPtr(hwnd),
         &scd);
 
-    if (!m_pSwapChain) {
+    if (!m_pSwapChainBuffer) {
         OutputDebugStringA("DXWindow::CreateContext failed - SwapChain creation");
         return false;
     }
@@ -110,7 +111,7 @@ bool DXWindow::CreateContext(D3DContextType type)
     }
 
     // 6. SwapChain を初期化
-    m_pSwapChain->Initialize(
+    m_pSwapChainBuffer->Initialize(
         wcex.hInstance,
         wcex.lpfnWndProc,
         (HWND)GetWindowLongPtr(hwnd),
@@ -123,9 +124,9 @@ bool DXWindow::CreateContext(D3DContextType type)
 // リソース管理
 void DXWindow::ResetResources()
 {
-    if (m_pSwapChain) {
-        m_pSwapChain->Release();
-        m_pSwapChain = nullptr;
+    if (m_pSwapChainBuffer) {
+        m_pSwapChainBuffer->Release();
+        m_pSwapChainBuffer = nullptr;
     }
     
     if (m_pDevice) {
@@ -151,10 +152,12 @@ void DXWindow::ResizeBuffers(int newWidth, int newHeight)
     m_nHeight = newHeight;
 
     // SwapChain のバッファをリサイズ
-    m_pSwapChain->ResizeBuffers(
-        0,
-        newWidth,
-        newHeight,
-        DXGI_FORMAT_R8G8B8A8_UNORM,
-        1);
+    if (m_pSwapChainBuffer) {
+        m_pSwapChainBuffer->ResizeBuffers(
+            0,
+            newWidth,
+            newHeight,
+            DXGI_FORMAT_R8G8B8A8_UNORM,
+            1);
+    }
 }

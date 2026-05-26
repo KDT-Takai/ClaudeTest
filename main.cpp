@@ -28,7 +28,8 @@ void SimpleRender()
 int main()
 {
     // DXWindow の作成と初期化
-    DXWindow window("DirectX12 Test Window", 800, 600);
+    HWND hWnd = GetConsoleWindow();  // コンソールウィンドウを使用
+    DXWindow window(hWnd, 800, 600, L"DirectX12 Test Window");
     
     if (!window.Create()) {
         MessageBoxA(NULL, "ウィンドウの作成に失敗しました", "エラー", MB_ICONERROR);
