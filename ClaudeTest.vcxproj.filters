@@ -21,6 +21,9 @@
     <ClCompile Include="Engine\Window\Window.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\DirectX12\DirectX12Window.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\DirectX12\DirectX12.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -29,8 +32,17 @@
     <ClInclude Include="Engine\Window\Window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\DirectX12\DirectX12Window.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\DirectX12\DirectX12.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="start-claude.ps1" />
+    <None Include="CLAUDE.md" />
+    <None Include=".gitignore" />
+    <None Include=".gitattributes" />
   </ItemGroup>
 </Project>

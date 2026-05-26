@@ -123,15 +123,23 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-	<ItemGroup>
-		<ClCompile Include="Engine\Window\Window.cpp" />
-		<ClCompile Include="Engine\DirectX12\DirectX12Window.cpp" />
-		<ClCompile Include="main.cpp" />
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="Engine\Window\Window.h" />
-		<ClInclude Include="Engine\DirectX12\DirectX12Window.h" />
-	</ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\DirectX12\DirectX12.cpp" />
+    <ClCompile Include="Engine\Window\Window.cpp" />
+    <ClCompile Include="Engine\DirectX12\DirectX12Window.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\DirectX12\DirectX12.h" />
+    <ClInclude Include="Engine\Window\Window.h" />
+    <ClInclude Include="Engine\DirectX12\DirectX12Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
+    <None Include="CLAUDE.md" />
+    <None Include="start-claude.ps1" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
