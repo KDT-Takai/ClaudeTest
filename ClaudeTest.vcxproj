@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\DirectX12\DirectX12.h" />
+    <ClInclude Include="Engine\Renderer\ID3D12GraphicsCommandList.h" />
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Engine\DirectX12\DirectX12Window.h" />
   </ItemGroup>

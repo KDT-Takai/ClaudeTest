@@ -38,6 +38,9 @@
     <ClInclude Include="Engine\DirectX12\DirectX12.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Renderer\ID3D12GraphicsCommandList.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="start-claude.ps1" />

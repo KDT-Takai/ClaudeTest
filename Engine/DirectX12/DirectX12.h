@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <d3d12.h>
 #include <dxgi1_4.h>
-#include "Window.h"  // 既存のウィンドウクラス
+#include "../Window/Window.h"  // 既存のウィンドウクラス
 
 // DirectX12 のコンテキスト設定
 enum class D3DContextType : UINT
