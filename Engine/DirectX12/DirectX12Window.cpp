@@ -1,9 +1,9 @@
-#include "DirectX12Window.h"
+#include "../DirectX12/DirectX12.h"
 #include <windowsx.h>
 
 // コンストラクタ実装
 DXWindow::DXWindow(HWND hWnd, int width, int height, const wchar_t* title) 
-    : m_hWnd(hWnd), m_width(width), m_height(height), m_active(true), m_title(title)
+    : m_hWnd(hWnd), m_nWidth(width), m_nHeight(height), m_active(true)
 {
     // ウィンドウプロシージャの保存
     lpfnWndProc = (WNDPROC)SetWindowLongPtr(hWnd, GWL_WNDPROC, 
@@ -39,11 +39,11 @@ bool DXWindow::Create()
             style,
             CW_USEDEFAULT,
             CW_USEDEFAULT,
-            m_width,
-            m_height,
+            m_nWidth,
+            m_nHeight,
             nullptr,
             nullptr,
-            wcex.hInstance,
+            g_wcex.hInstance,
             nullptr);
 
         if (!m_hWnd) {
@@ -64,8 +64,8 @@ bool DXWindow::Create()
 HRESULT DXWindow::Initialize(HWND hWnd, int width, int height, const wchar_t* title)
 {
     m_hWnd = hWnd;
-    m_width = static_cast<UINT32>(width);
-    m_height = static_cast<UINT32>(height);
+    m_nWidth = static_cast<UINT32>(width);
+    m_nHeight = static_cast<UINT32>(height);
     m_active = true;
 
     // ウィンドウプロシージャを設定
@@ -78,7 +78,7 @@ HRESULT DXWindow::Initialize(HWND hWnd, int width, int height, const wchar_t* ti
 // メインレンダーループ
 void DXWindow::RenderLoop()
 {
-    if (!m_active || !m_pSwapChainBuffer) {
+    if (!m_active || !m_swapChain) {
         return;
     }
 
@@ -93,14 +93,14 @@ void DXWindow::RenderLoop()
     clearValue.Color[0].a = 1.0f;
 
     cmdList->ClearRenderTargetView(
-        m_pSwapChainBuffer->GetBackBuffer(0, 0),
+        m_swapChain->GetBackBuffer(0, 0),
         &clearValue);
 
     // 描画コマンドの実行
     cmdList->Close();
 
     // SwapChain を更新して画面に反映
-    m_pSwapChainBuffer->Present(1, 0);
+    m_swapChain->Present(1, 0);
 }
 
 // ヘルパー関数：デバイス作成
@@ -158,8 +158,8 @@ HRESULT DXWindow::CreateDevice()
     ZeroMemory(&scd, sizeof(scd));
 
     scd.BufferCount = 2;
-    scd.BufferDesc.Width = m_width;
-    scd.BufferDesc.Height = m_height;
+    scd.BufferDesc.Width = m_nWidth;
+    scd.BufferDesc.Height = m_nHeight;
     scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     scd.BufferDesc.RefreshRate.Numerator = 60;
     scd.BufferDesc.RefreshRate.Denominator = 1;
@@ -223,8 +223,8 @@ HRESULT DXWindow::CreateCommandQueueAndList()
     ZeroMemory(&scd, sizeof(scd));
 
     scd.BufferCount = 2;
-    scd.BufferDesc.Width = m_width;
-    scd.BufferDesc.Height = m_height;
+    scd.BufferDesc.Width = m_nWidth;
+    scd.BufferDesc.Height = m_nHeight;
     scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     scd.BufferDesc.RefreshRate.Numerator = 60;
     scd.BufferDesc.RefreshRate.Denominator = 1;
@@ -310,8 +310,8 @@ LRESULT CALLBACK DXWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 
 // メンバ関数のインライン実装
 inline HWND DXWindow::GetHWND() const { return m_hWnd; }
-inline UINT32 DXWindow::GetWidth() const { return m_width; }
-inline UINT32 DXWindow::GetHeight() const { return m_height; }
+inline UINT32 DXWindow::GetWidth() const { return m_nWidth; }
+inline UINT32 DXWindow::GetHeight() const { return m_nHeight; }
 inline bool DXWindow::IsActive() const { return m_active; }
 
 // リソース管理
@@ -341,8 +341,8 @@ void DXWindow::ResetResources()
 // リサイズ処理
 void DXWindow::ResizeBuffers(int newWidth, int newHeight)
 {
-    m_width = newWidth;
-    m_height = newHeight;
+    m_nWidth = newWidth;
+    m_nHeight = newHeight;
 
     // SwapChain のバッファをリサイズ
     if (m_swapChain) {

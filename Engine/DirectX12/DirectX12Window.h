@@ -4,7 +4,7 @@
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <wrl/client.h>
-#include "Engine/Renderer/ID3D12GraphicsCommandList.h"
+#include "../Renderer/ID3D12GraphicsCommandList.h"
 
 using namespace Microsoft::WRL;
 
@@ -33,8 +33,8 @@ public:
 
     // Getters for convenience
     inline HWND GetHWND() const { return m_hWnd; }
-    inline UINT32 GetWidth() const { return m_width; }
-    inline UINT32 GetHeight() const { return m_height; }
+    inline UINT32 GetWidth() const { return m_nWidth; }
+    inline UINT32 GetHeight() const { return m_nHeight; }
 
     // Check if window is active
     bool IsActive() const { return m_active; }
@@ -44,14 +44,11 @@ protected:
     HWND m_hWnd;
     
     // Window dimensions
-    UINT32 m_width;
-    UINT32 m_height;
+    UINT32 m_nWidth;
+    UINT32 m_nHeight;
     
     // Active flag
     bool m_active;
-
-    // Title string (for derived classes)
-    const wchar_t* m_title;
 
     // DirectX 12 objects (protected for derived classes)
     ComPtr<ID3D12Device> m_device;

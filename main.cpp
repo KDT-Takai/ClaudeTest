@@ -1,6 +1,6 @@
 #include <windows.h>
-#include "Engine/Window/Window.h"
-#include "Engine/DirectX12/DirectX12Window.h"
+#include "../Window/Window.h"
+#include "../DirectX12/DirectX12.h"
 
 // 簡易的な描画関数
 void SimpleRender()
