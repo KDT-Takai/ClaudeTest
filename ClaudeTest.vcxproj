@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -132,19 +132,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Window\Window.cpp" />
-    <ClCompile Include="Engine\DirectX12\DirectX12Window.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Engine\Renderer\ID3D12GraphicsCommandList.h" />
-    <ClInclude Include="Engine\Window\Window.h" />
-    <ClInclude Include="Engine\DirectX12\DirectX12Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="CLAUDE.md" />
     <None Include="start-claude.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
