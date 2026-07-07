@@ -138,8 +138,9 @@
     <ClInclude Include="source\CLI.h" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="AGENT.md" />
-    <None Include="CLAUDE.md" />
+    <None Include="AGENT\AGENT.md" />
+    <None Include="AGENT\CLAUDE.md" />
+    <None Include="AGENT\GAME.md" />
     <None Include="start-claude.ps1" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
