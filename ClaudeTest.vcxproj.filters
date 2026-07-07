@@ -18,9 +18,6 @@
     <ClCompile Include="source\main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\CLI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="start-claude.ps1" />
@@ -29,10 +26,5 @@
     <None Include=".gitattributes" />
     <None Include="AGENT\AGENT.md" />
     <None Include="AGENT\GAME.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="source\CLI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

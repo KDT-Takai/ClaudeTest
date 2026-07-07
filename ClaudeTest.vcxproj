@@ -132,10 +132,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\CLI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\CLI.h" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="AGENT\AGENT.md" />
