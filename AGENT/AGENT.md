@@ -345,24 +345,12 @@
 
 以下の構成を基本とする。
 
-Source/
-├─ Main.cpp
-├─ Game/
-├─ Scene/
-├─ Actor/
-├─ Component/
-├─ System/
-├─ Manager/
-├─ Resource/
-├─ UI/
-├─ Input/
-├─ Audio/
-├─ Collision/
-├─ Utility/
-├─ Math/
-├─ Define/
-└─ Data/
+Sourceファイルの下に用途のファイルを作成する。
+例:
+Source/Player/Player.h
+Source/Player/Player.cpp
 
+ただし、main.cppはSource直下に配置する。
 
 # ディレクトリ責務
 
