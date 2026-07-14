@@ -15,16 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="start-claude.ps1" />
-    <None Include="AGENT\CLAUDE.md" />
     <None Include=".gitignore" />
     <None Include=".gitattributes" />
     <None Include="AGENT\AGENT.md" />
-    <None Include="AGENT\GAME.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
